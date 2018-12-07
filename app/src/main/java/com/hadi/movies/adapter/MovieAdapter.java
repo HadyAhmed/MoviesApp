@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.hadi.movies.R;
 import com.hadi.movies.activity.MovieDetailActivity;
 import com.hadi.movies.model.Movie;
 import com.hadi.movies.utils.NetworkUtils;
+import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 import java.util.List;
@@ -41,7 +41,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         final Movie currentMovie = mMovie.get(position);
         if (currentMovie != null) {
             URL imageUrl = NetworkUtils.buildURL(currentMovie.getMoviePosterUrl());
-            Glide.with(mContext).load(imageUrl).into(viewHolder.moviePoster);
+            if (imageUrl != null) {
+                Picasso.with(mContext).load(imageUrl.toString()).into(viewHolder.moviePoster);
+            }
             viewHolder.currentItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

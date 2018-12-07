@@ -2,15 +2,15 @@ package com.hadi.movies.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.hadi.movies.R;
 import com.hadi.movies.adapter.MovieAdapter;
@@ -22,12 +22,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hadi.movies.utils.NetworkUtils.MOST_POPULAR_SORT;
+import static com.hadi.movies.utils.NetworkUtils.TOP_RATED_SORT;
+
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView moviesRecycler;
     private ProgressBar progressBar;
     private MovieAdapter adapter;
-    private TextView errorMessageTv;
+    private byte currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         moviesRecycler = findViewById(R.id.movies_recycler_view);
-        errorMessageTv = findViewById(R.id.error_text_view);
 
         // Start the application with most popular movies results
         showMostPopularMovies();
@@ -43,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
     //method to show up movies with most popular sorting
     private void showMostPopularMovies() {
-        new MoviesAsyncTask().execute(NetworkUtils.SORT_BY_POPULAR);
+        new MoviesAsyncTask().execute(MOST_POPULAR_SORT);
     }
 
     //method to show up movies with top rating sorting
     private void showTopRatedMovies() {
-        new MoviesAsyncTask().execute(NetworkUtils.SORT_BY_TOP_RATED);
+        new MoviesAsyncTask().execute(TOP_RATED_SORT);
     }
 
     @Override
@@ -63,12 +65,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.most_popular_item:
                 if (!item.isChecked()) {
                     showMostPopularMovies();
+                    currentState = MOST_POPULAR_SORT;
                     item.setChecked(true);
                 }
                 return true;
             case R.id.top_rated_item:
                 if (!item.isChecked()) {
                     showTopRatedMovies();
+                    currentState = TOP_RATED_SORT;
                     item.setChecked(true);
                 }
                 return true;
@@ -77,15 +81,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class MoviesAsyncTask extends AsyncTask<Byte, Void, List<Movie>> {
+    /**
+     * Method to handle the error if result back equal null
+     * could be no internet connection or another error
+     */
+    private void showErrorSnackBar() {
+        View parentLayout = findViewById(R.id.movie_layout);
+        Snackbar.make(parentLayout, getString(R.string.error_message), Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (currentState == MOST_POPULAR_SORT) {
+                            showMostPopularMovies();
+                        } else {
+                            showTopRatedMovies();
+                        }
+                    }
+                })
+                .show();
+    }
 
+    class MoviesAsyncTask extends AsyncTask<Byte, Void, List<Movie>> {
         @Override
         protected void onPreExecute() {
             adapter = new MovieAdapter(MainActivity.this, new ArrayList<Movie>());
             moviesRecycler.setAdapter(adapter);
             progressBar = findViewById(R.id.progressBar);
             progressBar.setVisibility(View.VISIBLE);
-            errorMessageTv.setVisibility(View.INVISIBLE);
             super.onPreExecute();
         }
 
@@ -111,14 +133,13 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(movies);
             progressBar.setVisibility(View.INVISIBLE);
             if (movies != null) {
-                errorMessageTv.setVisibility(View.INVISIBLE);
                 adapter = new MovieAdapter(MainActivity.this, movies);
                 moviesRecycler.setAdapter(adapter);
-                GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
+                StaggeredGridLayoutManager layoutManager =
+                        new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                 moviesRecycler.setLayoutManager(layoutManager);
             } else {
-                errorMessageTv.setVisibility(View.VISIBLE);
-                errorMessageTv.setText(getString(R.string.error_message));
+                showErrorSnackBar();
             }
         }
     }

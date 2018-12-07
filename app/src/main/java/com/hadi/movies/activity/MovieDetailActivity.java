@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.hadi.movies.R;
 import com.hadi.movies.model.Movie;
 import com.hadi.movies.utils.NetworkUtils;
+import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 
@@ -54,7 +54,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         setTitle(movie.getMovieOriginalTitle());
         URL imageUrl = NetworkUtils.buildURL(movie.getMoviePosterBackDropUrl());
-        Glide.with(this).load(imageUrl).into(moviePoster);
+        if (imageUrl != null) {
+            Picasso.with(this).load(imageUrl.toString()).into(moviePoster);
+        }
         movieTitle.setText(movie.getMovieOriginalTitle());
         movieDate.setText(movie.getMovieReleaseDate());
         movieRate.setText(String.valueOf(movie.getMovieVoteAverage()));

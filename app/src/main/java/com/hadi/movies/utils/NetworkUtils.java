@@ -20,8 +20,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 public final class NetworkUtils {
     public static final String TAG = NetworkUtils.class.getSimpleName();
-    public static final byte SORT_BY_POPULAR = 0;
-    public static final byte SORT_BY_TOP_RATED = 1;
+    public static final byte MOST_POPULAR_SORT = 0;
+    public static final byte TOP_RATED_SORT = 1;
     private static final String BASE_API = "https://api.themoviedb.org/3/movie";
     private static final String PARAM_TOP_RATED = "top_rated";
     private static final String PARAM_POPULAR = "popular";
@@ -40,7 +40,7 @@ public final class NetworkUtils {
     public static URL buildURL(byte sortBy /*Top Rated = 0, Popular = 1*/) {
         Uri buildUri = Uri.parse(BASE_API)
                 .buildUpon()
-                .appendPath(sortBy == SORT_BY_POPULAR ? PARAM_POPULAR : PARAM_TOP_RATED)
+                .appendPath(sortBy == MOST_POPULAR_SORT ? PARAM_POPULAR : PARAM_TOP_RATED)
                 .appendQueryParameter(PARAM_API_KEY, API_KEY_VALUE)
                 .appendQueryParameter(PARAM_LANGUAGE, ENGLISH_LANGUAGE_VALUE)
                 .build();

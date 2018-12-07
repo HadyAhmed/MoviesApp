@@ -11,5 +11,6 @@
     <string name="release_date_label">Release Date</string>
 
     <!-- Error Message -->
-    <string name="error_message">Something Wrong Happened\nCould Be No Internet Connection</string>
+    <string name="error_message">something wrong happened</string>
+
 </resources>
