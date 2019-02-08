@@ -30,7 +30,6 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_condensed_bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintBottom_toTopOf="@+id/movie_rate_detail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_backdrop"
             app:layout_constraintVertical_chainStyle="packed"

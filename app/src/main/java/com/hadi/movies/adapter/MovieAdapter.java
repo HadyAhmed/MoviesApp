@@ -32,7 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.movie_main_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.movie_item, viewGroup, false);
         return new MovieViewHolder(view);
     }
 
@@ -40,7 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder viewHolder, int position) {
         final Movie currentMovie = mMovie.get(position);
         if (currentMovie != null) {
-            URL imageUrl = NetworkUtils.buildURL(currentMovie.getMoviePosterUrl());
+            URL imageUrl = NetworkUtils.buildURL(currentMovie.getPosterPath());
             if (imageUrl != null) {
                 Picasso.with(mContext).load(imageUrl.toString()).into(viewHolder.moviePoster);
             }

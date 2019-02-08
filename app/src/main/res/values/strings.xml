@@ -6,11 +6,15 @@
     <string name="image_backdrop_desc">Image backdrop for movie detail</string>
 
     <string name="sort_by_menu_title">Sort By</string>
-    <string name="most_popular_menu_item">Most Popular</string>
-    <string name="top_rated_menu_item">Top Rated</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
     <string name="release_date_label">Release Date</string>
 
     <!-- Error Message -->
     <string name="error_message">something wrong happened</string>
+
+    <!--Spinner Strings-->
+    <string name="choose_category">Choose Category</string>
+    <string name="show_favorites">Show Favorites</string>
 
 </resources>

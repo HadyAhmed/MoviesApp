@@ -22,7 +22,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail);
+        setContentView(R.layout.activity_detail);
         // Getting The Movie Object Passed By The Adapter
         Intent passedIntent = getIntent();
         Bundle extraBundle = passedIntent.getExtras();
@@ -52,14 +52,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         TextView movieRate = findViewById(R.id.movie_rate_detail);
         TextView movieOverview = findViewById(R.id.movie_overview_detail);
 
-        setTitle(movie.getMovieOriginalTitle());
-        URL imageUrl = NetworkUtils.buildURL(movie.getMoviePosterBackDropUrl());
+        setTitle(movie.getTitle());
+        URL imageUrl = NetworkUtils.buildURL(movie.getPosterPath());
         if (imageUrl != null) {
             Picasso.with(this).load(imageUrl.toString()).into(moviePoster);
         }
-        movieTitle.setText(movie.getMovieOriginalTitle());
-        movieDate.setText(movie.getMovieReleaseDate());
-        movieRate.setText(String.valueOf(movie.getMovieVoteAverage()));
-        movieOverview.setText(movie.getMovieOverView());
+        movieTitle.setText(movie.getTitle());
+        movieDate.setText(movie.getReleaseDate());
+        movieRate.setText(String.valueOf(movie.getVoteAverage()));
+        movieOverview.setText(movie.getOverview());
     }
 }

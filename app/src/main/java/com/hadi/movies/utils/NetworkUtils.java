@@ -130,7 +130,7 @@ public final class NetworkUtils {
                         String movieOverView = currentJson.getString("overview");
                         double movieVoteAverage = currentJson.getDouble("vote_average");
                         String movieReleaseDate = currentJson.getString("release_date");
-                        movieList.add(new Movie(movieOriginalTitle, moviePosterUrl, moviePosterBackDropUrl, movieOverView, movieVoteAverage, movieReleaseDate));
+//                        movieList.add(new Movie(movieOriginalTitle, moviePosterUrl, moviePosterBackDropUrl, movieOverView, movieVoteAverage, movieReleaseDate));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

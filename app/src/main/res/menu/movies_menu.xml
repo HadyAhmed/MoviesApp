@@ -2,20 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="@string/sort_by_menu_title"
-        app:showAsAction="ifRoom">
-        <menu>
-            <group
-                android:id="@+id/sorting_menu"
-                android:checkableBehavior="single">
-                <item
-                    android:id="@+id/most_popular_item"
-                    android:checked="true"
-                    android:title="@string/most_popular_menu_item" />
-                <item
-                    android:id="@+id/top_rated_item"
-                    android:title="@string/top_rated_menu_item" />
-            </group>
-        </menu>
-    </item>
+        android:id="@+id/show_fav_item"
+        android:icon="@drawable/ic_favorite_list"
+        android:title="@string/show_favorites"
+        app:showAsAction="ifRoom" />
 </menu>
