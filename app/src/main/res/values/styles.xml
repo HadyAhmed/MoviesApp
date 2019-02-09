@@ -19,4 +19,27 @@
         <item name="android:layout_marginEnd">16dp</item>
     </style>
 
+    <style name="movie_text_view_header_style">
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:fontFamily">@font/roboto_condensed_bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+    <style name="no_data_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:fontFamily">@font/roboto_condensed_bold</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
 </resources>

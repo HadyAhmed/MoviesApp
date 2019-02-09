@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -141,5 +143,25 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         NavUtils.navigateUpFromSameTask(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_to_fav_item:
+                // TODO: 2019-02-09 insert movie to database
+                return true;
+            case R.id.remove_from_fav_item:
+                // TODO: 2019-02-09 remove from favorite
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

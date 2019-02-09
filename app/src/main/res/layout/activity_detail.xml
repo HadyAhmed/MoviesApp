@@ -44,19 +44,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/movie_year"
                 tools:text="8.1/10" />
 
-            <android.support.design.button.MaterialButton
-                android:id="@+id/add_to_fav"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/fav_btn"
-                app:backgroundTint="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/movie_poster"
-                app:layout_constraintTop_toBottomOf="@+id/movie_rate" />
-
             <TextView
                 android:id="@+id/movie_overview"
                 android:layout_width="0dp"
@@ -85,7 +72,7 @@
 
             <TextView
                 android:id="@+id/trailer_label"
-                style="@style/movie_text_view_detail_style"
+                style="@style/movie_text_view_header_style"
                 android:text="@string/trailer_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,16 +80,8 @@
 
             <TextView
                 android:id="@+id/no_trailer_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/roboto_condensed_bold"
+                style="@style/no_data_style"
                 android:text="@string/no_trailer_msg"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/trailer_label" />
@@ -122,7 +101,7 @@
 
             <TextView
                 android:id="@+id/review_label"
-                style="@style/movie_text_view_detail_style"
+                style="@style/movie_text_view_header_style"
                 android:text="@string/review_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,16 +109,8 @@
 
             <TextView
                 android:id="@+id/no_review_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/roboto_condensed_bold"
+                style="@style/no_data_style"
                 android:text="@string/no_reviews_msg"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/review_label" />

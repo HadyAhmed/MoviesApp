@@ -7,37 +7,43 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.hadi.movies.R;
+import com.hadi.movies.databinding.TrailerItemBinding;
+import com.hadi.movies.interfaces.OnClickHandler;
 import com.hadi.movies.model.video.Result;
+import com.hadi.movies.model.view_holder.VideoHolder;
 
 import java.util.List;
 
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoHolder> {
     private List<Result> mVideoList;
+    private LayoutInflater inflater;
     private Context mContext;
 
-    public VideoAdapter(Context context, List<Result> mVideoList) {
+    public VideoAdapter(Context mContext, List<Result> mVideoList) {
         this.mVideoList = mVideoList;
-        this.mContext = context;
+        this.mContext = mContext;
     }
 
     @NonNull
     @Override
     public VideoHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.trailer_item, viewGroup, false));
+//        return new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.trailer_item, viewGroup, false));
+        if (inflater == null) {
+            inflater = LayoutInflater.from(viewGroup.getContext());
+        }
+        TrailerItemBinding trailerItemBinding = TrailerItemBinding.inflate(inflater, viewGroup, false);
+        return new VideoHolder(trailerItemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VideoHolder videoHolder, int i) {
         final Result currentTrailer = mVideoList.get(i);
-        videoHolder.movieTrailerTv.setText(currentTrailer.getName());
-        videoHolder.currentView.setOnClickListener(new View.OnClickListener() {
+        videoHolder.setItemBinding(currentTrailer);
+        videoHolder.getItemBinding().setClickHandler(new OnClickHandler() {
             @Override
-            public void onClick(View v) {
+            public void onTrailerClick() {
                 Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + currentTrailer.getKey()));
                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://www.youtube.com/watch?v=" + currentTrailer.getKey()));
@@ -55,14 +61,4 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         return mVideoList.size();
     }
 
-    class VideoHolder extends RecyclerView.ViewHolder {
-        private TextView movieTrailerTv;
-        private View currentView;
-
-        VideoHolder(@NonNull View itemView) {
-            super(itemView);
-            movieTrailerTv = itemView.findViewById(R.id.movie_trailer_name);
-            currentView = itemView;
-        }
-    }
 }
