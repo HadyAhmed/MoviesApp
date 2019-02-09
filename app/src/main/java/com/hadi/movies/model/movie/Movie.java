@@ -1,4 +1,4 @@
-package com.hadi.movies.model;
+package com.hadi.movies.model.movie;
 
 /*
 original title

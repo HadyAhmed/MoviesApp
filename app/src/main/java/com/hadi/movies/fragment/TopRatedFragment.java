@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import com.hadi.movies.R;
 import com.hadi.movies.adapter.MovieAdapter;
-import com.hadi.movies.model.WebMovieResponse;
+import com.hadi.movies.model.movie.WebMovieResponse;
 import com.hadi.movies.utils.network.WebServices;
 
 import retrofit2.Call;

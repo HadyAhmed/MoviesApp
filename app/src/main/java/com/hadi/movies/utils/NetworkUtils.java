@@ -2,7 +2,7 @@ package com.hadi.movies.utils;
 
 import android.net.Uri;
 
-import com.hadi.movies.model.Movie;
+import com.hadi.movies.model.movie.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

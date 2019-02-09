@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.hadi.movies.R;
 import com.hadi.movies.activity.MovieDetailActivity;
-import com.hadi.movies.model.Movie;
+import com.hadi.movies.model.movie.Movie;
 import com.hadi.movies.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
