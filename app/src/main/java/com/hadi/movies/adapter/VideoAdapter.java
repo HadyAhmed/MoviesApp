@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.hadi.movies.databinding.TrailerItemBinding;
 import com.hadi.movies.interfaces.OnTrailerClickHandler;
 import com.hadi.movies.model.video.Result;
-import com.hadi.movies.model.view_holder.VideoHolder;
+import com.hadi.movies.model.viewholder.VideoHolder;
 
 import java.util.List;
 

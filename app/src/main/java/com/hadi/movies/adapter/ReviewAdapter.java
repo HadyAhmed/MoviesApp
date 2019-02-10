@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.hadi.movies.databinding.ReviewItemBinding;
 import com.hadi.movies.model.review.Result;
-import com.hadi.movies.model.view_holder.ReviewHolder;
+import com.hadi.movies.model.viewholder.ReviewHolder;
 
 import java.util.List;
 

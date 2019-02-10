@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.hadi.movies.databinding.FavoriteItemBinding;
 import com.hadi.movies.interfaces.OnMovieClickHandler;
 import com.hadi.movies.model.movie.Movie;
-import com.hadi.movies.model.view_holder.FavoriteHolder;
+import com.hadi.movies.model.viewholder.FavoriteHolder;
 
 import java.util.List;
 

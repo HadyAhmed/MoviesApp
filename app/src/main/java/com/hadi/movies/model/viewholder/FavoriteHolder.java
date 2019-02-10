@@ -1,4 +1,4 @@
-package com.hadi.movies.model.view_holder;
+package com.hadi.movies.model.viewholder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
