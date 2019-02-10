@@ -1,5 +1,6 @@
 package com.hadi.movies.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.show_fav_item:
-                // TODO: 2019-02-08 Start Inent To Show Favorite Movies Within The Database
+                startActivity(new Intent(this, FavoriteActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

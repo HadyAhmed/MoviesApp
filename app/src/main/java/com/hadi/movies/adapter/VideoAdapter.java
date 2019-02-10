@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.hadi.movies.databinding.TrailerItemBinding;
-import com.hadi.movies.interfaces.OnClickHandler;
+import com.hadi.movies.interfaces.OnTrailerClickHandler;
 import com.hadi.movies.model.video.Result;
 import com.hadi.movies.model.view_holder.VideoHolder;
 
@@ -41,7 +41,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoHolder> {
     public void onBindViewHolder(@NonNull VideoHolder videoHolder, int i) {
         final Result currentTrailer = mVideoList.get(i);
         videoHolder.setItemBinding(currentTrailer);
-        videoHolder.getItemBinding().setClickHandler(new OnClickHandler() {
+        videoHolder.getItemBinding().setClickHandler(new OnTrailerClickHandler() {
             @Override
             public void onTrailerClick() {
                 Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + currentTrailer.getKey()));

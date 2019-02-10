@@ -1,13 +1,8 @@
 package com.hadi.movies.model.movie;
 
-/*
-original title
-movie poster image thumbnail
-A plot synopsis (called overview in the api)
-user rating (called vote_average in the api)
-release date
- */
-
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,14 +12,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName = "movie")
 public class Movie implements Parcelable {
-
+    @Ignore
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private int id;
+    @Ignore
     @SerializedName("video")
     @Expose
     private boolean video;
@@ -34,24 +32,30 @@ public class Movie implements Parcelable {
     @SerializedName("title")
     @Expose
     private String title;
+    @Ignore
     @SerializedName("popularity")
     @Expose
     private double popularity;
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+    @Ignore
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
+    @Ignore
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
+    @Ignore
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds = null;
+    @Ignore
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+    @Ignore
     @SerializedName("adult")
     @Expose
     private boolean adult;
@@ -62,9 +66,20 @@ public class Movie implements Parcelable {
     @Expose
     private String releaseDate;
 
+    public Movie(int id, double voteAverage, String title, String overview, String posterPath, String releaseDate) {
+        this.id = id;
+        this.voteAverage = voteAverage;
+        this.title = title;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.releaseDate = releaseDate;
+    }
+
+    @Ignore
     public Movie() {
     }
 
+    @Ignore
     protected Movie(Parcel in) {
         this.voteCount = in.readInt();
         this.id = in.readInt();

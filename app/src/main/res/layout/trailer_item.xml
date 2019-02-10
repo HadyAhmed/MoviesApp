@@ -11,7 +11,7 @@
 
         <variable
             name="clickHandler"
-            type="com.hadi.movies.interfaces.OnClickHandler" />
+            type="com.hadi.movies.interfaces.OnTrailerClickHandler" />
     </data>
 
     <android.support.constraint.ConstraintLayout

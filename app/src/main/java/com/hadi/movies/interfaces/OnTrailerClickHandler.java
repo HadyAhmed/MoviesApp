@@ -1,5 +1,5 @@
 package com.hadi.movies.interfaces;
 
-public interface OnClickHandler {
+public interface OnTrailerClickHandler {
     void onTrailerClick();
 }
