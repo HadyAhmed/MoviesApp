@@ -1,6 +1,5 @@
 package com.hadi.movies.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,11 +15,9 @@ import java.util.List;
 public class MovieDatabaseAdapter extends RecyclerView.Adapter<FavoriteHolder> {
     private List<Movie> mMovieList;
     private LayoutInflater inflater;
-    private Context mContext;
     private OnMovieClickHandler onMovieClickHandler;
 
-    public MovieDatabaseAdapter(Context mContext, OnMovieClickHandler movieClickHandler) {
-        this.mContext = mContext;
+    public MovieDatabaseAdapter(OnMovieClickHandler movieClickHandler) {
         this.onMovieClickHandler = movieClickHandler;
     }
 

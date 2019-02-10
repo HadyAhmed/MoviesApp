@@ -185,7 +185,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * this will populate {@link Movie} to the UI
+     */
     private void showMovieObjectDetail(Movie movie) {
         setTitle(movie.getTitle());
         URL imageUrl = NetworkUtils.buildURL(movie.getPosterPath());
