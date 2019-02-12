@@ -90,7 +90,7 @@ public class MovieDetailActivity extends AppCompatActivity {
      * method to populate the details from the {@link Movie} to the UI.
      *
      * @param movie is the passed mMovie object from {@link com.hadi.movies.adapter.MovieAdapter}
-     *              or from the {@link FavoriteActivity} using local data storage.
+     *              or from the {@link com.hadi.movies.fragment.FavoriteFragment} using local data storage.
      */
     private void populateMovieDetail(Movie movie) {
         showMovieObjectDetail(movie);

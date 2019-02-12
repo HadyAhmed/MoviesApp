@@ -38,6 +38,7 @@
             android:fontFamily="@font/roboto_condensed_bold"
             android:maxLines="2"
             android:text="@{movieDetail.overview}"
+            android:textAppearance="?android:textAppearanceMedium"
             tools:text="@string/overview_placeholder" />
     </LinearLayout>
 </layout>

@@ -30,8 +30,11 @@ public interface WebServices {
                     .addConverterFactory(GsonConverterFactory.create(new Gson()))
                     .build();
 
-    @GET("{category}")
-    Call<WebMovieResponse> getMovies(@Path("category") String movieCategory, @Query(API_KEY) String key);
+    @GET(TOP_RATED_MOVIES)
+    Call<WebMovieResponse> getTopRatedMovies(@Query(API_KEY) String key);
+
+    @GET(POPULAR_MOVIES)
+    Call<WebMovieResponse> getPopularMovies(@Query(API_KEY) String key);
 
     @GET("{movieId}/" + REVIEWS)
     Call<ReviewResponse> getMovieReview(@Path("movieId") int id, @Query(API_KEY) String key);

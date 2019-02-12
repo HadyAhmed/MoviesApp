@@ -6,7 +6,7 @@
     <android.support.design.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/small_margin"
         app:cardCornerRadius="@dimen/small_margin"
         app:cardElevation="@dimen/medium_margin">
 

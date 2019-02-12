@@ -1,28 +1,30 @@
-package com.hadi.movies.activity;
+package com.hadi.movies.fragment;
 
+
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.hadi.movies.R;
+import com.hadi.movies.activity.MovieDetailActivity;
 import com.hadi.movies.adapter.MovieDatabaseAdapter;
-import com.hadi.movies.databinding.ActivityFavoriteBinding;
+import com.hadi.movies.databinding.FavoriteLayoutBinding;
 import com.hadi.movies.interfaces.OnFavMovieClickHandler;
 import com.hadi.movies.model.movie.Movie;
 import com.hadi.movies.model.viewmodel.MovieViewModel;
@@ -35,33 +37,40 @@ import java.util.List;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 /**
- * @author Hadi Ahmed
- * @version 1.2
- * this where the favorite list show up from database.
+ * A simple {@link Fragment} subclass.
  */
-public class FavoriteActivity extends AppCompatActivity implements OnFavMovieClickHandler {
+public class FavoriteFragment extends Fragment implements OnFavMovieClickHandler {
 
-    private static final String TAG = FavoriteActivity.class.getSimpleName() + "DatabaseChanges";
     private MovieDatabaseAdapter mAdapter;
     private MovieDatabase database;
-    private ActivityFavoriteBinding favoriteBinding;
+    private FavoriteLayoutBinding favoriteBinding;
+    private Context mContext;
+    private Activity mActivity;
+
+    public FavoriteFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        favoriteBinding = DataBindingUtil.setContentView(this, R.layout.activity_favorite);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        favoriteBinding = FavoriteLayoutBinding.inflate(inflater, container, false);
+        mContext = getContext();
+        mActivity = getActivity();
         // Initial MovieDatabaseAdapter
         mAdapter = new MovieDatabaseAdapter(this);
-
         // Setup Recycler View
         favoriteBinding.favoriteRv.setAdapter(mAdapter);
-        favoriteBinding.favoriteRv.addItemDecoration(new DividerItemDecoration(FavoriteActivity.this, DividerItemDecoration.VERTICAL));
+        favoriteBinding.favoriteRv.addItemDecoration(new DividerItemDecoration(mContext.getApplicationContext(), DividerItemDecoration.VERTICAL));
 
         setupRecyclerViewActions();
 
-        database = MovieDatabase.getInstance(this);
+        database = MovieDatabase.getInstance(mContext.getApplicationContext());
         retrieveMovies();
+
+        return favoriteBinding.getRoot();
     }
 
     /**
@@ -69,7 +78,7 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
      * and the on child draw to draw canvas behind the item when swiping.
      */
     private void setupRecyclerViewActions() {
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
@@ -83,7 +92,7 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
                         int position = viewHolder.getAdapterPosition();
                         List<Movie> movies = mAdapter.getMovieList();
                         database.movieDao().removeMovie(movies.get(position));
-                        runOnUiThread(new Runnable() {
+                        mActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 mAdapter.setMovieList(new ArrayList<Movie>());
@@ -97,8 +106,8 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 // Adding on swipe canvas for each item in the recycler view.
                 new RecyclerViewSwipeDecorator
-                        .Builder(FavoriteActivity.this, c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addBackgroundColor(ContextCompat.getColor(FavoriteActivity.this, R.color.colorAccent))
+                        .Builder(mContext, c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent))
                         .addActionIcon(R.drawable.ic_favorite_delete)
                         .create()
                         .decorate();
@@ -107,6 +116,10 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
         }).attachToRecyclerView(favoriteBinding.favoriteRv);
     }
 
+    @Override
+    public void onMovieClick(int movieId) {
+        startActivity(new Intent(getContext(), MovieDetailActivity.class).putExtra(MovieDetailActivity.MOVIE_DATABASE_KEY, movieId));
+    }
 
     /**
      * This method will retrieve all the movies within the database and observe changes in it.
@@ -119,39 +132,12 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
                 if (movies != null && movies.size() == 0) {
                     favoriteBinding.emptyListView.setVisibility(View.VISIBLE);
                 } else {
-                    // Setup Recycler View
                     mAdapter.setMovieList(movies);
+                    favoriteBinding.emptyListView.setVisibility(View.INVISIBLE);
                 }
             }
 
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        NavUtils.navigateUpFromSameTask(this);
-    }
-
-    @Override
-    public void onMovieClick(int movieId) {
-        startActivity(new Intent(getApplicationContext(), MovieDetailActivity.class).putExtra(MovieDetailActivity.MOVIE_DATABASE_KEY, movieId));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.favorite_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete_all:
-                showDeleteDialog();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     /**
@@ -159,7 +145,7 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
      * if so it will delete all the database.
      */
     private void showDeleteDialog() {
-        AlertDialog.Builder askForDelete = new AlertDialog.Builder(this);
+        AlertDialog.Builder askForDelete = new AlertDialog.Builder(mContext);
         askForDelete
                 .setTitle(R.string.delete_dialog_title)
                 .setMessage(R.string.delete_dialog_msg)
@@ -170,7 +156,7 @@ public class FavoriteActivity extends AppCompatActivity implements OnFavMovieCli
                             @Override
                             public void run() {
                                 database.movieDao().deleteAll();
-                                runOnUiThread(new Runnable() {
+                                mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         mAdapter.setMovieList(new ArrayList<Movie>());

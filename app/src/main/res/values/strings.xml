@@ -10,13 +10,11 @@
     <string name="remove_movie_msg">Movie Was Removed Favorites</string>
     <string name="add_movie_msg">Movie Was Added To Favorites</string>
     <string name="empty_list_tv">No Movies Added Yet, Go Back And Add Movies To Favorite List</string>
-    <!--Spinner Strings-->
-    <string name="most_popular">Most Popular</string>
+    <!--Tab Titles -->
+    <string name="most_popular">Popular</string>
     <string name="top_rated">Top Rated</string>
     <string name="favorites_list">Favorites</string>
     <!--Main Activity Strings-->
-    <string name="choose_category">Choose Category</string>
-    <string name="show_favorites">Show Favorites</string>
     <!--Detail Activity Strings-->
     <string name="review_label">Reviews :</string>
     <string name="trailer_label">Trailers :</string>
@@ -26,8 +24,5 @@
     <string name="delete_dialog_title">Delete All</string>
     <string name="delete_dialog_msg">Are you sure ?</string>
     <string name="delete_dialog_positive_label">Yes</string>
-    <string name="delete_item">Delete All</string>
     <string name="delete_dialog_cancel_label">Cancel</string>
-
-
 </resources>
