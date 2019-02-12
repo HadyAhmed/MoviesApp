@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.hadi.movies.R;
 import com.hadi.movies.activity.MovieDetailActivity;
 import com.hadi.movies.model.movie.Movie;
+import com.hadi.movies.model.viewholder.MovieViewHolder;
 import com.hadi.movies.utils.network.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
@@ -19,21 +19,27 @@ import java.net.URL;
 import java.util.List;
 
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private final Context mContext;
+public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
+    private Context mContext;
     private List<Movie> mMovie;
 
-    public MovieAdapter(Context mContext, List<Movie> mMovie) {
+    public MovieAdapter(Context mContext) {
         this.mContext = mContext;
+    }
+
+    public List<Movie> getMovie() {
+        return mMovie;
+    }
+
+    public void setMovie(List<Movie> mMovie) {
         this.mMovie = mMovie;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.movie_item, viewGroup, false);
-        return new MovieViewHolder(view);
+        return new MovieViewHolder(LayoutInflater.from(mContext).inflate(R.layout.movie_item, viewGroup, false));
     }
 
     @Override
@@ -42,9 +48,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         if (currentMovie != null) {
             URL imageUrl = NetworkUtils.buildURL(currentMovie.getPosterPath());
             if (imageUrl != null) {
-                Picasso.with(mContext).load(imageUrl.toString()).into(viewHolder.moviePoster);
+                Picasso.with(mContext).load(imageUrl.toString()).into(viewHolder.getMoviePoster());
             }
-            viewHolder.currentItem.setOnClickListener(new View.OnClickListener() {
+            viewHolder.getCurrentItem().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent movieDetailIntent = new Intent(mContext, MovieDetailActivity.class);
@@ -57,22 +63,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
-        if (0 == mMovie.size()) {
+        if (mMovie == null) {
             return 0;
         } else {
             return mMovie.size();
-        }
-    }
-
-
-    class MovieViewHolder extends RecyclerView.ViewHolder {
-        ImageView moviePoster;
-        View currentItem;
-
-        MovieViewHolder(@NonNull View itemView) {
-            super(itemView);
-            moviePoster = itemView.findViewById(R.id.movie_poster_image);
-            currentItem = itemView;
         }
     }
 }

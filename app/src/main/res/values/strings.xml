@@ -13,6 +13,7 @@
     <!--Spinner Strings-->
     <string name="most_popular">Most Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="favorites_list">Favorites</string>
     <!--Main Activity Strings-->
     <string name="choose_category">Choose Category</string>
     <string name="show_favorites">Show Favorites</string>
@@ -20,7 +21,6 @@
     <string name="review_label">Reviews :</string>
     <string name="trailer_label">Trailers :</string>
     <string name="fav_add">Add To Favorite</string>
-    <string name="fav_remove">Remove From Favorite</string>
     <string name="overview_placeholder">1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates — including an older prisoner named Red — for his integrity and unquenchable sense of hope.</string>
     <!--Favorite Activity Strings-->
     <string name="delete_dialog_title">Delete All</string>

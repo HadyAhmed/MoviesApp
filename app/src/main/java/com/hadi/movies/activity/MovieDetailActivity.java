@@ -25,8 +25,8 @@ import com.hadi.movies.model.movie.Movie;
 import com.hadi.movies.model.review.ReviewResponse;
 import com.hadi.movies.model.video.Result;
 import com.hadi.movies.model.video.VideoResponse;
-import com.hadi.movies.model.view_model.AddMovieViewModel;
-import com.hadi.movies.model.view_model.MovieViewModelFactory;
+import com.hadi.movies.model.viewmodel.AddMovieViewModel;
+import com.hadi.movies.model.viewmodel.MovieViewModelFactory;
 import com.hadi.movies.utils.AppExecutors;
 import com.hadi.movies.utils.database.MovieDatabase;
 import com.hadi.movies.utils.network.NetworkUtils;
@@ -47,7 +47,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
 
     private ActivityDetailBinding detailBinding;
-    private WebServices webServices = WebServices.getMovies.create(WebServices.class);
+    private WebServices webServices = WebServices.getMoviesResponse.create(WebServices.class);
     private MovieDatabase database;
     private Movie mMovie;
 
@@ -197,7 +197,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         detailBinding.movieRate.setText(String.valueOf(movie.getVoteAverage()));
         detailBinding.movieRate.append("/10");
 
-        detailBinding.movieYear.setText(String.valueOf(movie.getReleaseDate()).substring(0, 4));
+        detailBinding.movieYear.setText(String.valueOf(movie.getReleaseDate()));
 
         detailBinding.movieOverview.setText(movie.getOverview());
     }

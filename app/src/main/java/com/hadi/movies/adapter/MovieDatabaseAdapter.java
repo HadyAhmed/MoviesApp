@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.hadi.movies.databinding.FavoriteItemBinding;
-import com.hadi.movies.interfaces.OnMovieClickHandler;
+import com.hadi.movies.interfaces.OnFavMovieClickHandler;
 import com.hadi.movies.model.movie.Movie;
 import com.hadi.movies.model.viewholder.FavoriteHolder;
 
@@ -15,10 +15,10 @@ import java.util.List;
 public class MovieDatabaseAdapter extends RecyclerView.Adapter<FavoriteHolder> {
     private List<Movie> mMovieList;
     private LayoutInflater inflater;
-    private OnMovieClickHandler onMovieClickHandler;
+    private OnFavMovieClickHandler onFavMovieClickHandler;
 
-    public MovieDatabaseAdapter(OnMovieClickHandler movieClickHandler) {
-        this.onMovieClickHandler = movieClickHandler;
+    public MovieDatabaseAdapter(OnFavMovieClickHandler movieClickHandler) {
+        this.onFavMovieClickHandler = movieClickHandler;
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class MovieDatabaseAdapter extends RecyclerView.Adapter<FavoriteHolder> {
     public void onBindViewHolder(@NonNull FavoriteHolder favoriteHolder, int i) {
         final Movie currentMovie = mMovieList.get(i);
         favoriteHolder.setItemBinding(currentMovie);
-        favoriteHolder.getItemBinding().setClickHandler(onMovieClickHandler);
+        favoriteHolder.getItemBinding().setClickHandler(onFavMovieClickHandler);
     }
 
     @Override

@@ -23,9 +23,9 @@ import android.view.View;
 import com.hadi.movies.R;
 import com.hadi.movies.adapter.MovieDatabaseAdapter;
 import com.hadi.movies.databinding.ActivityFavoriteBinding;
-import com.hadi.movies.interfaces.OnMovieClickHandler;
+import com.hadi.movies.interfaces.OnFavMovieClickHandler;
 import com.hadi.movies.model.movie.Movie;
-import com.hadi.movies.model.view_model.MovieViewModel;
+import com.hadi.movies.model.viewmodel.MovieViewModel;
 import com.hadi.movies.utils.AppExecutors;
 import com.hadi.movies.utils.database.MovieDatabase;
 
@@ -39,7 +39,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
  * @version 1.2
  * this where the favorite list show up from database.
  */
-public class FavoriteActivity extends AppCompatActivity implements OnMovieClickHandler {
+public class FavoriteActivity extends AppCompatActivity implements OnFavMovieClickHandler {
 
     private static final String TAG = FavoriteActivity.class.getSimpleName() + "DatabaseChanges";
     private MovieDatabaseAdapter mAdapter;
@@ -83,6 +83,12 @@ public class FavoriteActivity extends AppCompatActivity implements OnMovieClickH
                         int position = viewHolder.getAdapterPosition();
                         List<Movie> movies = mAdapter.getMovieList();
                         database.movieDao().removeMovie(movies.get(position));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.setMovieList(new ArrayList<Movie>());
+                            }
+                        });
                     }
                 });
             }

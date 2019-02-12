@@ -1,4 +1,4 @@
-package com.hadi.movies.model.view_model;
+package com.hadi.movies.model.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
