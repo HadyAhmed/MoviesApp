@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -13,10 +12,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
  */
 public class FavoriteFragment extends Fragment implements OnFavMovieClickHandler {
 
+    private static final String TAG = "FavoriteFragment";
     private MovieDatabaseAdapter mAdapter;
     private MovieDatabase database;
     private FavoriteLayoutBinding favoriteBinding;
@@ -129,44 +129,18 @@ public class FavoriteFragment extends Fragment implements OnFavMovieClickHandler
         viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
-                if (movies != null && movies.size() == 0) {
+                if (movies == null || movies.size() == 0) {
+                    Log.d(TAG, "Database is empty");
                     favoriteBinding.emptyListView.setVisibility(View.VISIBLE);
-                } else {
                     mAdapter.setMovieList(movies);
+                } else {
                     favoriteBinding.emptyListView.setVisibility(View.INVISIBLE);
+                    Log.d(TAG, "Database has: " + movies.size() + " Movies");
+                    mAdapter.setMovieList(movies);
                 }
             }
 
         });
     }
 
-    /**
-     * a {@link AlertDialog} to ask the user for delete all confirmation.
-     * if so it will delete all the database.
-     */
-    private void showDeleteDialog() {
-        AlertDialog.Builder askForDelete = new AlertDialog.Builder(mContext);
-        askForDelete
-                .setTitle(R.string.delete_dialog_title)
-                .setMessage(R.string.delete_dialog_msg)
-                .setPositiveButton(R.string.delete_dialog_positive_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                database.movieDao().deleteAll();
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mAdapter.setMovieList(new ArrayList<Movie>());
-                                    }
-                                });
-                            }
-                        });
-                    }
-                })
-                .setNeutralButton(R.string.delete_dialog_cancel_label, null)
-                .show();
-    }
 }

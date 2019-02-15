@@ -222,6 +222,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (database.movieDao().getMovieId(mMovie.getId()) == mMovie.getId()) {
+                            Log.d(TAG, "run: Movie " + mMovie.getTitle() + " was removed");
                             database.movieDao().removeMovie(mMovie);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -231,6 +232,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
+                            Log.d(TAG, "run: Movie " + mMovie.getTitle() + " was Added");
                             database.movieDao().insertMovie(mMovie);
                             runOnUiThread(new Runnable() {
                                 @Override
